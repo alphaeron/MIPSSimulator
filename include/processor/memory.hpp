@@ -1,0 +1,11 @@
+#ifndef __MIPSSIMULATOR_PROCESSOR_MEMORY_HPP_
+#define __MIPSSIMULATOR_PROCESSOR_MEMORY_HPP_
+
+class Memory
+{
+public:
+
+private:
+};
+
+#endif // __MIPSSIMULATOR_PROCESSOR_MEMORY_HPP_
