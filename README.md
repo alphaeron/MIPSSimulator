@@ -1,2 +1,3 @@
-# GrepWizard
-Become the greatest grep user there ever was.
+# MIPSSimulator
+
+For all those times its useful to simulate a MIPS processor...
