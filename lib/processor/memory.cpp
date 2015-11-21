@@ -12,7 +12,7 @@ Memory::~Memory ()
 }
 
 unsigned
-Memory::operator[] (unsigned address) const
+Memory::operator[] (unsigned address)
 {
 	/// @todo Bounds checking and raise exception if outsize bounds.
 	return data[address];
