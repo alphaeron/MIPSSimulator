@@ -36,32 +36,32 @@ Register::operator= (unsigned data)
 	return *this;
 }
 
-unsigned
+inline unsigned
 Register::operator+ (const Register& r1, const Register& r2)
 {
 	return r1.m_data + r2.m_data;
 }
 
-unsigned
+inline unsigned
 Register::operator| (const Register& r1, const Register& r2)
 {
 	return r1.m_data | r2.m_data;
 }
 
-unsigned
+inline unsigned
 Register::operator- (const Register& r1, const Register& r2)
 {
 	return r1.m_data - r2.m_data;
 }
 
-std::tuple<unsigned, unsigned>
+inline std::tuple<unsigned, unsigned>
 Register::operator* (const Register& r1, const Register& r2)
 {
 	unsigned d = r1.m_data * r2.m_data;
 	std::tuple<unsigned, unsigned> tup (d >> 16, d << 16);
 }
 
-bool
+inline bool
 Register::operator< (const Register& r1, const Register& r2)
 {
 	return r1.m_data < r2.m_data;
