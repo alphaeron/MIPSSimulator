@@ -1,6 +1,11 @@
 #ifndef __MIPSSIMULATOR_PROCESSOR_MIPSPROCESSOR_HPP_
 #define __MIPSSIMULATOR_PROCESSOR_MIPSPROCESSOR_HPP_
 
+#include <function>
+#include <map>
+#include <string>
+
+#include <os/os.hpp>
 #include <processor/memory.hpp>
 #include <processor/register/register_file.hpp>
 #include <processor/register/register.hpp>
@@ -16,7 +21,7 @@ public:
 	 *
 	 * @param[in]
 	 */
-	MIPSProcessor (Memory& memory, RegisterFile& register_file);
+	MIPSProcessor (OS& os, Memory& memory, RegisterFile& register_file);
 
 	// DESTRUCTORS
 
@@ -28,6 +33,7 @@ public:
 private:
 	// Friend required classes.
 
+	friend class OS;
 	friend class RegisterFile;
 
 	// FUNCTIONS
@@ -227,13 +233,26 @@ private:
 	void
 	mips_syscall ();
 
+	/**
+	 * @brief Exit simulation.
+	 *
+	 * Transfer control to the OS and exit this simulation.
+	 */
+	void
+	mips_syscall_exit ();
+
 	// VARIABLES
 
+	/** The OS running on this <code>MIPSProcessor</code>. */
+	OS& m_os;
 	/** The memory for this <code>MIPSProcessor</code>. */
 	Memory& m_memory;
 	/** The register file for this <code>MIPSProcessor</code>. */
 	RegisterFile& m_register_filo;
 	/** The operations that this <code>MIPSProcessor</code> supports. */
+	std::map<std::string, std::function<void()> > m_operations;
+	/** The syscalls that this <code>MIPSProcessor</code> supports. */
+	std::map<int, std::function<void()> > m_syscalls;
 };
 
 #endif // __MIPSSIMULATOR_PROCESSOR_MIPSPROCESSOR_HPP_

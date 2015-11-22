@@ -3,8 +3,70 @@
 #include <processor/processor.hpp>
 
 MIPSProcessor::MIPSProcessor (Memory& memory, RegisterFile& register_file)
-	: m_memory (memory), m_register_file (register_file)
+	: m_os (os), m_memory (memory), m_register_file (register_file)
 {
+	using std::placeholders::_1;
+	using std::placeholders::_2;
+	using std::placeholders::_3;
+
+	// Initalize m_operations.
+
+	m_operations["add"] = std::bind (&MIPSProcessor::mips_add, *this, _1, _2,
+																	 _3);
+	m_operations["addi"] = std::bind (&MIPSProcessor::mips_addi, *this, _1, _2,
+																	 _3);
+	m_operations["addiu"] = std::bind (&MIPSProcessor::mips_addiu, *this, _1, _2,
+																	 _3);
+	m_operations["addu"] = std::bind (&MIPSProcessor::mips_addu, *this, _1, _2,
+																	 _3);
+	m_operations["beq"] = std::bind (&MIPSProcessor::mips_beq, *this, _1, _2,
+																	 _3);
+	m_operations["j"] = std::bind (&MIPSProcessor::mips_j, *this, _1);
+	m_operations["jal"] = std::bind (&MIPSProcessor::mips_jal, *this, _1);
+	m_operations["jr"] = std::bind (&MIPSProcessor::mips_jr, *this, _1);
+	m_operations["lui"] = std::bind (&MIPSProcessor::mips_lui, *this, _1, _2,
+																	 _3);
+	m_operations["lw"] = std::bind (&MIPSProcessor::mips_lw, *this, _1, _2, _3);
+	m_operations["mfhi"] = std::bind (&MIPSProcessor::mips_mfhi, *this, _1);
+	m_operations["mflo"] = std::bind (&MIPSProcessor::mips_mflo, *this, _1);
+	m_operations["mult"] = std::bind (&MIPSProcessor::mips_mult, *this, _1, _2);
+	m_operations["ori"] = std::bind (&MIPSProcessor::mips_ori, *this, _1, _2,
+																	 _3);
+	m_operations["sll"] = std::bind (&MIPSProcessor::mips_sll, *this, _1, _2,
+																	 _3);
+	m_operations["slt"] = std::bind (&MIPSProcessor::mips_slt, *this, _1, _2,
+																	 _3);
+	m_operations["slti"] = std::bind (&MIPSProcessor::mips_slti, *this, _1, _2,
+																	 _3);
+	m_operations["sub"] = std::bind (&MIPSProcessor::mips_sub, *this, _1, _2,
+																	 _3);
+	m_operations["subu"] = std::bind (&MIPSProcessor::mips_subu, *this, _1, _2,
+																	 _3);
+	m_operations["sw"] = std::bind (&MIPSProcessor::mips_sw, *this, _1, _2, _3);
+	m_operations["syscall"] = std::bind (&MIPSProcessor::mips_syscall, *this);
+
+	// Initalize m_syscalls.
+
+	// // Print integer.
+	// m_syscalls[1] = ;
+	// // Print float.
+	// m_syscalls[2] = ;
+	// // Print double.
+	// m_syscalls[3] = ;
+	// // Print string.
+	// m_syscalls[4] = ;
+	// // Read integer.
+	// m_syscalls[5] = ;
+	// // Read float.
+	// m_syscalls[6] = ;
+	// // Read double.
+	// m_syscalls[7] = ;
+	// // Read string.
+	// m_syscalls[8] = ;
+	// // sbrk (allocate memory buffer).
+	// m_syscalls[9] = ;
+	// Exit.
+	m_syscalls[10] = std::bind (&MIPSProcessor::mips_syscall_exit, *this);
 }
 
 MIPSProcessor::~MIPSProcessor ()
@@ -143,4 +205,11 @@ MIPSProcessor::mips_sw (const Register& rt, const Register& rs, int offset)
 void
 MIPSProcessor::mips_syscall ()
 {
+	m_syscall_table[m_register_file[2]]();
+}
+
+void
+MIPSProcessor::mips_syscall_exit ()
+{
+	os.exit_application ();
 }
