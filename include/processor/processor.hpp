@@ -10,6 +10,14 @@
 #include <processor/register/register_file.hpp>
 #include <processor/register/register.hpp>
 
+// These are the states the processor can be in.
+
+#define MIPS_IF 0
+#define MIPS_ID 1
+#define MIPS_EX 2
+#define MIPS_MEM 3
+#define MIPS_WB 4
+
 class MIPSProcessor
 {
 public:
@@ -30,13 +38,61 @@ public:
 	 */
 	~MIPSProcessor ();
 
+	// FUNCTIONS
+
+	// /**
+	//  * @brief Begin execution.
+	//  *
+	//  * Start executing the program that was loaded into memory (this must be
+	//  * done by the <code>OS</code>).
+	//  */
+	// void
+	// begin_execution ();
+
+	/**
+	 * @brief Execute the functionality at the current state this
+	 *        <code>MIPSProcessor</code> is in.
+	 */
+	void
+	tick ();
+
 private:
 	// Friend required classes.
 
-	friend class OS;
 	friend class RegisterFile;
 
 	// FUNCTIONS
+
+	/**
+	 * @brief What this processor does in the if state.
+	 */
+	void
+	mips_if ();
+
+	/**
+	 * @brief What this processor does in the id state.
+	 */
+	void
+	mips_id ();
+
+	/**
+	 * @brief What this processor does in the ex state.
+	 */
+	void
+	mips_ex ();
+
+	/**
+	 * @brief What this processor does in the mem state.
+	 */
+	void
+	mips_mem ();
+
+	/**
+	 * @brief What this processor does in the wb state.
+	 */
+	void
+	mips_wb ();
+
 
 	/**
 	 * @brief R[rd] = R[rs] + SignExtImm
@@ -243,16 +299,22 @@ private:
 
 	// VARIABLES
 
+	/** The state in the instruction pipeline we are in. */
+	int m_processor_state;
 	/** The OS running on this <code>MIPSProcessor</code>. */
 	OS& m_os;
 	/** The memory for this <code>MIPSProcessor</code>. */
 	Memory& m_memory;
 	/** The register file for this <code>MIPSProcessor</code>. */
-	RegisterFile& m_register_filo;
+	RegisterFile& m_register_file;
+	/** The functions at each state in this <code>MIPSProcessor</code>. */
+	std::map<std::string, std::function<void()> > m_state_functions;
 	/** The operations that this <code>MIPSProcessor</code> supports. */
 	std::map<std::string, std::function<void()> > m_operations;
 	/** The syscalls that this <code>MIPSProcessor</code> supports. */
 	std::map<int, std::function<void()> > m_syscalls;
+
+	// Temporary registers.
 };
 
 #endif // __MIPSSIMULATOR_PROCESSOR_MIPSPROCESSOR_HPP_

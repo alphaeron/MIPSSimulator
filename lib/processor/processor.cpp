@@ -3,7 +3,8 @@
 #include <processor/processor.hpp>
 
 MIPSProcessor::MIPSProcessor (Memory& memory, RegisterFile& register_file)
-	: m_os (os), m_memory (memory), m_register_file (register_file)
+	: m_os (os), m_memory (memory), m_register_file (register_file),
+		m_processor_state (-1)
 {
 	using std::placeholders::_1;
 	using std::placeholders::_2;
@@ -45,6 +46,12 @@ MIPSProcessor::MIPSProcessor (Memory& memory, RegisterFile& register_file)
 	m_operations["sw"] = std::bind (&MIPSProcessor::mips_sw, *this, _1, _2, _3);
 	m_operations["syscall"] = std::bind (&MIPSProcessor::mips_syscall, *this);
 
+	m_state_functions[0] = std::bind (&MIPSProcessor::mips_if, *this);
+	m_state_functions[1] = std::bind (&MIPSProcessor::mips_id, *this);
+	m_state_functions[2] = std::bind (&MIPSProcessor::mips_ex, *this);
+	m_state_functions[3] = std::bind (&MIPSProcessor::mips_mem, *this);
+	m_state_functions[4] = std::bind (&MIPSProcessor::mips_wb, *this);
+
 	// Initalize m_syscalls.
 
 	// // Print integer.
@@ -70,8 +77,47 @@ MIPSProcessor::MIPSProcessor (Memory& memory, RegisterFile& register_file)
 }
 
 MIPSProcessor::~MIPSProcessor ()
+{ }
+
+// Public interface (things a processor can do).
+
+void
+MIPSProcessor::tick ()
+{
+	// Update the processor state.
+	m_processor_state = (m_processor_state + 1) % 5;
+	// Perform whatever function we do at that state.
+	m_state_functions[m_processor_state]();
+}
+
+// Functions at the processor's different states.
+
+void
+MIPSProcessor::mips_if ()
 {
 }
+
+void
+MIPSProcessor::mips_id ()
+{
+}
+
+void
+MIPSProcessor::mips_ex ()
+{
+}
+
+void
+MIPSProcessor::mips_mem ()
+{
+}
+
+void
+MIPSProcessor::mips_wb ()
+{
+}
+
+// Operation implementations.
 
 void
 MIPSProcessor::mips_add (Register& rd, const Register& rs, const Register& rt)
