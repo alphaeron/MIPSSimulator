@@ -14,3 +14,18 @@ void
 OS::execute ()
 {
 }
+
+void
+OS::vm_fifo ()
+{
+}
+
+void
+OS::vm_lru ()
+{
+}
+
+void
+OS::vm_random ()
+{
+}

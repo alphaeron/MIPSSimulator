@@ -36,6 +36,28 @@ public:
 	execute ();
 
 private:
+	// FUNCTIONS
+
+	// VM management algorithms
+
+	/**
+	 * @brief FIFO management.
+	 */
+	void
+	vm_fifo ();
+
+	/**
+	 * @brief LRU management.
+	 */
+	void
+	vm_lru ();
+
+	/**
+	 * @brief Random management.
+	 */
+	void
+	vm_random ();
+
 	// VARIABLES
 
 	/** THe clock assosiated with this system. */
