@@ -26,6 +26,10 @@ public:
 	~MIPSProcessor ();
 
 private:
+	// Friend required classes.
+
+	friend class RegisterFile;
+
 	// FUNCTIONS
 
 	/**

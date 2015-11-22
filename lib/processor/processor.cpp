@@ -42,21 +42,29 @@ void
 MIPSProcessor::mips_beq (const Register& rs, const Register& rt,
 												 unsigned branch_address)
 {
+	if (rs == rt)
+		{
+			m_register_file.m_registers[REG_PC] = branch_address;
+		}
 }
 
 void
 MIPSProcessor::mips_j (unsigned jump_address)
 {
+	m_register_file.m_registers[REG_PC] = jump_address;
 }
 
 void
 MIPSProcessor::mips_jal (unsigned jump_address)
 {
+	m_register_file[31] = m_register_file.m_registers[REG_PC];
+	m_register_file.m_registers[REG_PC] = jump_address;
 }
 
 void
 MIPSProcessor::mips_jr (const Register& rs)
 {
+	m_register_file.m_registers[REG_PC] = rs;
 }
 
 void
