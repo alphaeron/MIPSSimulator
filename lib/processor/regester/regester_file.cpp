@@ -4,6 +4,10 @@ inline
 RegisterFile::RegisterFile ()
 { }
 
+inline
+RegisterFile::~RegisterFile ()
+{ }
+
 Register&
 RegisterFile::operator[] (unsigned reg)
 {

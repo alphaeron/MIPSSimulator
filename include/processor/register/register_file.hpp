@@ -19,7 +19,17 @@ class RegisterFile
 public:
 	// CONSTRUCTORS
 
+	/**
+	 * @brief Default constructor (does nothing).
+	 */
 	RegisterFile ();
+
+	// DESTRUCTOR
+
+	/**
+	 * @brief Destructor.
+	 */
+	~RegisterFile ();
 
 	// OPERATORS
 
