@@ -14,15 +14,26 @@ public:
 	 * @brief Construct the OS.
 	 *
 	 * @param[in] clock     The clock assosiated with this system.
-	 * @param[in] processor The processor this <code>OS</code> is running on.
-	 * @param[in] memory    The memory for this system
+	 * @param[in] processor The processor this <code>OS</code> is
+	 *                                   running on.
+	 * @param[in] memory    The memory assosiated with this system.
 	 */
 	OS (Clock& clock, MIPSProcessor& processor, Memory& memory);
+
+	// DESTRUCTORS
 
 	/**
 	 * Destructor.
 	 */
 	~OS ();
+
+	// FUNCTIONS
+
+	/**
+	 * @brief Begin execution.
+	 */
+	void
+	execute ();
 
 private:
 	// VARIABLES
@@ -34,5 +45,7 @@ private:
 	/** THe memory for this system. */
 	Clock& m_memory;
 };
+
+extern OS* os;
 
 #endif //  __MIPSSIMULATOR_OS_OS_HPP_
