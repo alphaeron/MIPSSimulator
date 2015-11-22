@@ -1,5 +1,7 @@
 #include <utility/stats.hpp>
 
+RunStatistics statistics;
+
 ostream&
 operator<< (ostream& os, const RunStatistics& stats)
 {

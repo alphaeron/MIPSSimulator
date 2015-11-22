@@ -28,4 +28,6 @@ struct RunStatistics
 ostream&
 operator<< (ostream& os, const RunStatistics& stats);
 
+extern RunStatistics statistics;
+
 #endif //  __MIPSSIMULATOR_STATS_HPP_
