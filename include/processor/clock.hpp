@@ -1,0 +1,11 @@
+#ifndef __MIPSSIMULATOR_PROCESSOR_CLOCK_HPP_
+#define __MIPSSIMULATOR_PROCESSOR_CLOCK_HPP_
+
+class Clock
+{
+public:
+
+private:
+};
+
+#endif //  __MIPSSIMULATOR_PROCESSOR_CLOCK_HPP_
