@@ -1,6 +1,8 @@
 #ifndef __MIPSSIMULATOR_STATS_HPP_
 #define __MIPSSIMULATOR_STATS_HPP_
 
+#include <iostream>
+
 /**
  * @brief POD containing important statistics about the execution of a
  *        simulation.
@@ -22,5 +24,8 @@ struct RunStatistics
 	/** The number of page table misses. */
 	unsigned long n_page_table_misses;
 };
+
+ostream&
+operator<< (ostream& os, const RunStatistics& stats);
 
 #endif //  __MIPSSIMULATOR_STATS_HPP_
