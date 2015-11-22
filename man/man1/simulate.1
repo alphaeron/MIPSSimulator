@@ -9,6 +9,7 @@ simulate \- MIPS processor simulator
 [\fB\-a\fR \fIALGORITHM\fR]
 [\fB\-b\fR \fIBITS\fR]
 [\fB\-a\fR \fIPAGESIZE\fR]
+[\fB\-m\fR \fIMEMSIZE\fR]
 \fB\-r\fR \fIPROGRAM\fR
 \fB\-d\fR \fIDATADIR\fR
 
@@ -49,6 +50,10 @@ Default is 24 bits.
 .BR \-g ", " \-\-page-size =\fIPAGESIZE\fR
 Specify the size of a page.
 Default is 4KiB.
+.TP
+.BR \-m ", " \-\-memory-size =\fIMEMSIZE\fR
+Specify the size of physical memory.
+Default is 1GiB.
 .TP
 .BR \-r ", " \-\-program =\fIPROGRAM\fR
 Specify the program to execute.

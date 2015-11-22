@@ -10,11 +10,12 @@ main (int argc, char* argv[])
 {
 	std::string version = "1.0.0"
 	int verbose_flag = 0;
-	int num_processes;
-	int instruction_time_slice;
+	int num_processes = 32;
+	int instruction_time_slice = 50;
 	std::string vm_algorithm;
-	int virtual_address_bits;
-	int page_size;
+	int virtual_address_bits = 24;
+	int page_size = 4096; // 4KiB
+	int memory_size = 1; // 1GiB
 	std::string program;
 	std::string data_dir;
 
@@ -24,18 +25,20 @@ main (int argc, char* argv[])
     {
       static struct option long_options[] =
         {
-					{"help",                   no_argument, 0, 'h'},
-          {"version",                no_argument, 0, 'v'},
-          {"verbose",                no_argument, 0, 'V'},
+					{"help",                   no_argument,       0, 'h'},
+          {"version",                no_argument,       0, 'v'},
+          {"verbose",                no_argument,       0, 'V'},
 					{"num-processes",          optional_argument, 0, 'p'},
 					{"instruction-time-slice", optional_argument, 0, 't'},
-					{"vm-algorithm",           optional_argument, 0, 'a'},
+					{"vm-algorithm",           required_argument, 0, 'a'},
 					{"virtual-address-bits",   optional_argument, 0, 'b'},
 					{"page-size",              optional_argument, 0, 'g'},
+					{"memory-size",            optional_argument, 0, 'm'},
 					{"program",                required_argument, 0, 'r'},
 					{"data-dir",               required_argument, 0, 'd'}
           {0, 0, 0, 0}
         };
+
       /* getopt_long stores the option index here. */
       int option_index = 0;
 
@@ -80,6 +83,10 @@ main (int argc, char* argv[])
 				case 'g':
 					page_size = std::stoi (optarg);
           break;
+
+				case 'm':
+					memory_size = std::stoi (optarg);
+					break;
 
 				case 'r':
 					program = optarg;
@@ -147,6 +154,8 @@ program.\n\
   -g, --page-size=PAGESIZE                 Specify the size of a page.  \
 Default\n\
                                            is 4KiB.\n\
+  -m, --memory-size=MEMSIZE                Specify the size of physical \
+memory.  Default is 1GiB.\n\
   -r, --program=PROGRAM                    Specify the program to execute.  \
 The\n\
                                            program must be under the data\n\
