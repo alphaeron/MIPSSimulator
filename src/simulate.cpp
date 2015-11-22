@@ -118,6 +118,12 @@ main (int argc, char* argv[])
 								<< "Data Directory: " << data_dir << std::endl;
 		}
 
+	Simulator sim (num_processes, instruction_time_slice, vm_algorithm,
+								 virtual_address_bits, page_size, memory_size, program,
+								 data_dir);
+
+	sim.simulate ();
+
 	return 0;
 }
 
