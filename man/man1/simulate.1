@@ -1,0 +1,64 @@
+.TH SIMULATE 1
+.SH NAME
+simulate \- MIPS processor simulator
+.SH SYNOPSIS
+.B simulate
+[\fB\-\-verbose\fR]
+[\fB\-p\fR \fINUMPROCESSES\fR]
+[\fB\-t\fR \fINUMINSTS\fR]
+[\fB\-a\fR \fIALGORITHM\fR]
+[\fB\-b\fR \fIBITS\fR]
+[\fB\-a\fR \fIPAGESIZE\fR]
+\fB\-r\fR \fIPROGRAM\fR
+\fB\-d\fR \fIDATADIR\fR
+
+.B simulate
+\fB\-\-help\fR
+
+.B simulate
+\fB\-\-version\fR
+.SH DESCRIPTION
+.B simulate
+MIPS processor simulator that executes MIPS assembly programs.
+.SH OPTIONS
+.TP
+.BR \-h ", " \-\-help
+Output a brief help message and exit.
+.TP
+.BR \-v ", " \-\-version
+Output version information and exit.
+.TP
+.BR \-V ", " \-\-verbose
+Output information at each stage of execution.
+.TP
+.BR \-p ", " \-\-num\-processes =\fINUMPROCESSES\fR
+Set the number of processes
+Default is 32 processes.
+.TP
+.BR \-t ", " \-\-instruction\-time\-slice =\fINUMINSTS\fR
+Set the number of instructions in an instruction time slice.
+Default is 50 instructions.
+.TP
+.BR \-a ", " \-\-vm\-algorithm =\fIALGORITHM\fR
+Specify the virtual memory algorithm to use when executing this program.
+.TP
+.BR \-b ", " \-\-virtual\-address\-bits =\fIBITS\fR
+Secify the number of bits in a virtual address.
+Default is 24 bits.
+.TP
+.BR \-g ", " \-\-page-size =\fIPAGESIZE\fR
+Specify the size of a page.
+Default is 4KiB.
+.TP
+.BR \-r ", " \-\-program =\fIPROGRAM\fR
+Specify the program to execute.
+The program must be under the
+.B data
+directory.
+\.TP
+.BR \-d ", "\-\-data\-dir =\fIDATADIR\fR
+The data directory to store the program's assembly files in.
+.SH AUTHOR
+John C. Matty <jcmjohnmatty@gmail.com>
+.SH SEE ALSO
+For more information, please see \fBsimulate\fR\'s full documentation.
