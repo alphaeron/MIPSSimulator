@@ -29,7 +29,7 @@ public:
 	 *
 	 * @param[in]
 	 */
-	MIPSProcessor (OS& os, Memory& memory, RegisterFile& register_file);
+	MIPSProcessor (Memory& memory, RegisterFile& register_file);
 
 	// DESTRUCTORS
 
@@ -301,8 +301,6 @@ private:
 
 	/** The state in the instruction pipeline we are in. */
 	int m_processor_state;
-	/** The OS running on this <code>MIPSProcessor</code>. */
-	OS& m_os;
 	/** The memory for this <code>MIPSProcessor</code>. */
 	Memory& m_memory;
 	/** The register file for this <code>MIPSProcessor</code>. */

@@ -3,8 +3,7 @@
 #include <processor/processor.hpp>
 
 MIPSProcessor::MIPSProcessor (Memory& memory, RegisterFile& register_file)
-	: m_os (os), m_memory (memory), m_register_file (register_file),
-		m_processor_state (-1)
+	: m_memory (memory), m_register_file (register_file),	m_processor_state (-1)
 {
 	using std::placeholders::_1;
 	using std::placeholders::_2;
@@ -257,5 +256,5 @@ MIPSProcessor::mips_syscall ()
 void
 MIPSProcessor::mips_syscall_exit ()
 {
-	os.exit_application ();
+	os->exit_application ();
 }
