@@ -13,6 +13,11 @@ OS::~OS ()
 void
 OS::execute ()
 {
+	while (true)
+		{
+			// This handles everything that should occur...
+			clock.tick ();
+		}
 }
 
 void
