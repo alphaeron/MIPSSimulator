@@ -40,15 +40,6 @@ public:
 
 	// FUNCTIONS
 
-	// /**
-	//  * @brief Begin execution.
-	//  *
-	//  * Start executing the program that was loaded into memory (this must be
-	//  * done by the <code>OS</code>).
-	//  */
-	// void
-	// begin_execution ();
-
 	/**
 	 * @brief Execute the functionality at the current state this
 	 *        <code>MIPSProcessor</code> is in.
