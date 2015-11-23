@@ -3,6 +3,7 @@
 
 #include <tuple>
 
+template <typename DataT = unsigned>
 class Register
 {
 public:
@@ -20,7 +21,7 @@ public:
 	 *
 	 * @param data The data to copy the value of into this register.
 	 */
-	Register (unsigned data);
+	Register (DataT data);
 
 	// DESTRUCTOR
 
@@ -34,7 +35,7 @@ public:
 	/**
 	 * @brief Cast this <code>Register</code> to the type of the stored value.
 	 */
-	operator unsigned () const;
+	operator DataT () const;
 
 	// OPERATORS
 
@@ -45,8 +46,8 @@ public:
 	 *
 	 * @return *this.
 	 */
-	unsigned
-	operator= (unsigned data);
+	DataT
+	operator= (DataT data);
 
 	/**
 	 * @brief Add 2 registers.
@@ -56,7 +57,7 @@ public:
 	 *
 	 * @return <code>r1 + r2</code>.
 	 */
-	unsigned
+	DataT
 	operator+ (const Register& r1, const Register& r2) const;
 
 	/**
@@ -67,7 +68,7 @@ public:
 	 *
 	 * @return <code>r1 | r2</code>.
 	 */
-	unsigned
+	DataT
 	operator| (const Register& r1, const Register& r2) const;
 
 	/**
@@ -78,7 +79,7 @@ public:
 	 *
 	 * @return <code>r1 - r2</code>.
 	 */
-	unsigned
+	DataT
 	operator- (const Register& r1, const Register& r2) const;
 
 	/**
@@ -89,7 +90,7 @@ public:
 	 *
 	 * @return <code>r1 * r2</code>.
 	 */
-	std::tuple<unsigned, unsigned>
+	std::tuple<DataT, DataT>
 	operator* (const Register& r1, const Register& r2) const;
 
 	/**
@@ -106,8 +107,8 @@ public:
 private:
 	// VARIABLES
 
-	/** Store the data for this register as an unsigned. */
-	unsigned m_data;
+	/** Store the data for this register as an DataT. */
+	DataT m_data;
 };
 
 #endif // __MIPSSIMULATOR_PROCESSOR_REGISTER_HPP_

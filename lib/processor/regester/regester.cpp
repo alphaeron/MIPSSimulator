@@ -1,26 +1,31 @@
 #include <processor/regester/regester.hpp>
 
+template <typename DataT>
 inline
-Register::Register ()
+Register<DataT>::Register ()
 { }
 
+template <typename DataT>
 inline
-Register::Register (unsigned data)
+Register<DataT>::Register (DataT data)
 	: m_data (data)
 { }
 
+template <typename DataT>
 inline
-Register::~Register ()
+Register<DataT>::~Register ()
 { }
 
+template <typename DataT>
 inline
-Register::operator unsigned ()
+Register<DataT>::operator DataT ()
 {
 	return m_data;
 }
 
-Register&
-Register::operator= (const Register& rhs)
+template <typename DataT>
+Register<DataT>&
+Register<DataT>::operator= (const Register& rhs)
 {
 	if (this != &rhs)
 		{
@@ -29,40 +34,46 @@ Register::operator= (const Register& rhs)
 	return *this;
 }
 
-Register&
-Register::operator= (unsigned data)
+template <typename DataT>
+Register<DataT>&
+Register<DataT>::operator= (DataT data)
 {
 	m_data = data;
 	return *this;
 }
 
-inline unsigned
-Register::operator+ (const Register& r1, const Register& r2)
+template <typename DataT>
+inline DataT
+Register<DataT>::operator+ (const Register& r1, const Register& r2)
 {
 	return r1.m_data + r2.m_data;
 }
 
-inline unsigned
-Register::operator| (const Register& r1, const Register& r2)
+template <typename DataT>
+inline DataT
+Register<DataT>::operator| (const Register& r1, const Register& r2)
 {
 	return r1.m_data | r2.m_data;
 }
 
-inline unsigned
-Register::operator- (const Register& r1, const Register& r2)
+template <typename DataT>
+inline DataT
+Register<DataT>::operator- (const Register& r1, const Register& r2)
 {
 	return r1.m_data - r2.m_data;
 }
 
-inline std::tuple<unsigned, unsigned>
-Register::operator* (const Register& r1, const Register& r2)
+template <typename DataT>
+inline std::tuple<DataT, DataT>
+Register<DataT>::operator* (const Register& r1, const Register& r2)
 {
-	unsigned d = r1.m_data * r2.m_data;
-	std::tuple<unsigned, unsigned> tup (d >> 16, d << 16);
+	DataT d = r1.m_data * r2.m_data;
+	std::tuple<DataT, DataT> tup (d >> 16, d << 16);
 }
 
+template <typename DataT>
 inline bool
-Register::operator< (const Register& r1, const Register& r2)
+Register<DataT>::operator< (const Register& r1, const Register& r2)
 {
 	return r1.m_data < r2.m_data;
 }

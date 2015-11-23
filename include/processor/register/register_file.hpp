@@ -14,6 +14,7 @@
 
 #define N_REGISTERS (REG_PC)
 
+template <typename DataT = unsigned>
 class RegisterFile
 {
 public:

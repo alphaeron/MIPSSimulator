@@ -1,15 +1,18 @@
 #include <processor/regester/regester_file.hpp>
 
+template <typename DataT>
 inline
-RegisterFile::RegisterFile ()
+RegisterFile<DataT>::RegisterFile ()
 { }
 
+template <typename DataT>
 inline
-RegisterFile::~RegisterFile ()
+RegisterFile<DataT>::~RegisterFile ()
 { }
 
-Register&
-RegisterFile::operator[] (unsigned reg)
+template <typename DataT>
+Register<DataT>&
+RegisterFile<DataT>::operator[] (unsigned reg)
 {
 	if (reg < 0 || reg > 31)
 		{
@@ -21,8 +24,9 @@ RegisterFile::operator[] (unsigned reg)
 		}
 }
 
-Register&
-RegisterFile::operator[] (unsigned reg)
+template <typename DataT>
+Register<DataT>&
+RegisterFile<DataT>::operator[] (unsigned reg)
 {
 	if (reg < 0 || reg > 31)
 		{
