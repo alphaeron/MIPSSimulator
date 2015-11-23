@@ -21,6 +21,12 @@ OS::execute ()
 }
 
 void
+OS::exit_application ()
+{
+	exit (0);
+}
+
+void
 OS::vm_fifo ()
 {
 }
