@@ -3,7 +3,6 @@
 Memory::Memory (size_t mem_size)
 	: m_size (mem_size)
 {
-	data = new unsigned[mem_size];
 }
 
 Memory::~Memory ()
@@ -11,14 +10,14 @@ Memory::~Memory ()
 	delete [] data;
 }
 
-unsigned
+std::experimental::any
 Memory::operator[] (unsigned address)
 {
 	/// @todo Bounds checking and raise exception if outsize bounds.
 	return data[address];
 }
 
-unsigned&
+std::experimental::any&
 Memory::operator[] (unsigned address)
 {
 	/// @todo Bounds checking and raise exception if outsize bounds.

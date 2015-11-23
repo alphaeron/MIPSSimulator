@@ -1,6 +1,9 @@
 #ifndef __MIPSSIMULATOR_PROCESSOR_MEMORY_HPP_
 #define __MIPSSIMULATOR_PROCESSOR_MEMORY_HPP_
 
+#include <experimental/any>
+#include <map>
+
 class Memory
 {
 public:
@@ -50,7 +53,7 @@ private:
 	/** The size of data. */
 	size_t m_size;
 	/** The data that is stored in this <code>Memory</code>. */
-	unsigned* data;
+	std::map<unsigned, std::experimental::any> data;
 };
 
 #endif // __MIPSSIMULATOR_PROCESSOR_MEMORY_HPP_
