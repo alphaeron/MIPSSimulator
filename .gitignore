@@ -11,6 +11,8 @@ Makefile.in
 *.lo
 *.so
 *.a
+libtool.m4
+lt*.m4
 aclocal.m4
 autom4te.cache
 compile
