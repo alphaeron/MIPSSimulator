@@ -2,6 +2,7 @@ AC_INIT([MIPSSimulator],[1.0.0],[jcmjohnmatty@me.com])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 AC_CONFIG_MACRO_DIRS([m4])
 AC_PROG_CXX
+AM_PROG_AR
 LT_INIT
 LT_INIT([enable-static])
 LT_INIT([enable-shared])

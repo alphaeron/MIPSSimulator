@@ -11,6 +11,7 @@ Makefile.in
 *.lo
 *.so
 *.a
+ar-lib
 libtool.m4
 lt*.m4
 aclocal.m4
