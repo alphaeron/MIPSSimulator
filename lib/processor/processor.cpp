@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <tuple>
 
 #include <processor/processor.hpp>
@@ -94,26 +95,98 @@ MIPSProcessor::tick ()
 void
 MIPSProcessor::mips_if ()
 {
+	// Get the instruction to execute (at $pc).
+	// $pc will be "mux"ed at the end of the ex stage.
+	ifid_reg = static_cast<std::string>
+		(m_memory[m_register_file.m_registers[REG_PC]]);
 }
 
 void
 MIPSProcessor::mips_id ()
 {
+	// Decode ifid_reg
+	std::string command = ifid_reg;
+	std::replace (command.begin (), command.end (), ',', ' ');
+	std::stringstream ss (command);
+	std::istream_iterator <std::string> begin (ss);
+	std::istream_iterator <std::string> end;
+	std::vector <std::string> command_parts (begin, end);
+	std::copy (command_parts.begin (), command_parts.end (),
+						 std::back_iterator (cpts));
 }
 
 void
 MIPSProcessor::mips_ex ()
 {
+	std::vector <Register> regs;
+	std::function <void()> cmd = m_operations[cpts[0]];
+
+	// Based on instruction class, do the operation.
+
+	if (is_three_regs ())
+		{
+			m_operations[cpts[0]](m_register_file[std::stoi (cpts[1])],
+														m_register_file[std::stoi (cpts[2])],
+														m_register_file[std::stoi (cpts[3])]);
+		}
+	if (is_two_regs_args ())
+		{
+			// If we have a lw or sw.
+			if (cpts[0] == "lw")
+				{
+					unsigned offset;
+					Register rt;
+					m_operations[cpts[0]](m_register_file[std::stoi (cpts[1])],
+																rt, offset);
+				}
+			else if (cpts[0] == "sw")
+				{
+					unsigned offset;
+					Register rt;
+					m_operations[cpts[0]](m_register_file[std::stoi (cpts[1])],
+																rt, offset);
+				}
+			else
+				{
+					m_operations[cpts[0]](m_register_file[std::stoi (cpts[1])],
+																m_register_file[std::stoi (cpts[2])],
+																std::stoi (cpts[3]));
+				}
+		}
+	if (is_two_args ())
+		{
+			m_operations[cpts[0]](m_register_file[std::stoi (cpts[1])],
+														m_register_file[std::stoi (cpts[2])]);
+		}
+	if (is_one_reg ())
+		{
+			m_operations[cpts[0]](m_register_file[std::stoi (cpts[1])]);
+		}
+	if (is_one_i ())
+		{
+			m_operations[cpts[0]](std::stoi (cpts[1]));
+		}
+	if (is_syscall ())
+		{
+			m_operations["syscall"]();
+		}
 }
 
 void
 MIPSProcessor::mips_mem ()
 {
-}
+	// Only update program counter if we didn't branch.
+	if (cpts[0] != "beq")
+		{
+			/// @todo Implement operator+=
+			m_memory[m_register_file.m_registers[REG_PC]] =
+				m_memory[m_register_file.m_registers[REG_PC]] + 4;
+		}}
 
 void
 MIPSProcessor::mips_wb ()
 {
+	// Nothing to do because of the way we are simulating int.
 }
 
 // Operation implementations.
@@ -257,4 +330,97 @@ void
 MIPSProcessor::mips_syscall_exit ()
 {
 	os->exit_application ();
+}
+
+bool
+MIPSProcessor::is_three_regs ()
+{
+	if (cpts[0] == "add"
+			|| cpts[0] == "addu"
+			|| cpts[0] == "sub"
+			|| cpts[0] == "subu"
+			|| cpts[0] == "slt")
+		{
+			return true;
+		}
+	else
+		{
+			return false;
+		}
+}
+
+bool
+MIPSProcessor::is_two_regs_i ()
+{
+	if (cpts[0] == "addi"
+			|| cpts[0] == "addiu"
+			|| cpts[0] == "beq"
+			|| cpts[0] == "lui"
+			|| cpts[0] == "lw"
+			|| cpts[0] == "ori"
+			|| cpts[0] == "sll"
+			|| cpts[0] == "slti"
+			|| cpts[0] == "sw")
+		{
+			return true;
+		}
+	else
+		{
+			return false;
+		}
+}
+
+bool
+MIPSProcessor::is_two_args ()
+{
+	if (cpts[0] == "mult")
+		{
+			return true;
+		}
+	else
+		{
+			return false;
+		}
+}
+
+bool
+MIPSProcessor::is_one_reg ()
+{
+	if (cpts[0] == "jr"
+			|| cpts[0] == "mfhi"
+			|| cpts[0] == "mflo")
+		{
+			return true;
+		}
+	else
+		{
+			return false;
+		}
+}
+
+bool
+MIPSProcessor::is_one_i ()
+{
+	if (cpts[0] == "j"
+			|| cpts[0] == "jal")
+		{
+			return true;
+		}
+	else
+		{
+			return false;
+		}
+}
+
+bool
+MIPSProcessor::is_syscall ()
+{
+	if (cpts[0] == "syscall")
+		{
+			return true;
+		}
+	else
+		{
+			return false;
+		}
 }

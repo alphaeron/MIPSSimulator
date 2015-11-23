@@ -288,6 +288,26 @@ private:
 	void
 	mips_syscall_exit ();
 
+	// Type of an instruction.
+
+	bool
+	is_three_regs ();
+
+	bool
+	is_two_regs_args ();
+
+	bool
+	is_two_args ();
+
+	bool
+	is_one_reg ();
+
+	bool
+	is_one_i ();
+
+	bool
+	is_syscall ();
+
 	// VARIABLES
 
 	/** The state in the instruction pipeline we are in. */
@@ -302,6 +322,11 @@ private:
 	std::map<std::string, std::function<void()> > m_operations;
 	/** The syscalls that this <code>MIPSProcessor</code> supports. */
 	std::map<int, std::function<void()> > m_syscalls;
+
+	Register<std::string> ifid_reg;
+	std::vector <std::string> cpts;
+	Register exmem_reg;
+	Register memwb_reg;
 
 	// Temporary registers.
 };
