@@ -1,4 +1,4 @@
-AC_INIT([MIPSSimulator],[1.0.0],[jcmjohnmatty@me.com])
+AC_INIT([MIPSSimulator],[1.0.0],[alphaeron@gmail.com])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 AC_CONFIG_MACRO_DIRS([m4])
 AC_PROG_CXX

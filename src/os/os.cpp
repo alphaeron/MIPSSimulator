@@ -19,6 +19,7 @@ OS::OS (MIPSProcessor& processor, Memory& memory, std::string program,
 	unsigned first_pc = -1;
 	while (std::getline (asm_file, asm_line) && std::getline (addrs_file, addrs_line))
 		{
+			// Get the virtual address for this program...
 			unsigned i;
 			std::stringstream ss;
 			ss << std::hex << addrs_line.substr (2, addrs_line.length () - 2);
