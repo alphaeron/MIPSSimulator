@@ -1,3 +1,3 @@
 # MIPSSimulator
 
-For all those times its useful to simulate a MIPS processor...
+Execute MIPS assembly programs.
