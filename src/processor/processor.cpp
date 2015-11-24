@@ -125,6 +125,10 @@ MIPSProcessor::mips_if ()
 	// Get the instruction to execute (at $pc).
 	// $pc will be "mux"ed at the end of the ex stage.
 	ifid_reg = m_memory[m_register_file.m_registers[REG_PC]];
+	if (ifid_reg == "")
+		{
+			exit (0);
+		}
 }
 
 void
@@ -313,7 +317,7 @@ void
 MIPSProcessor::mips_mem ()
 {
 	// Only update program counter if we didn't branch.
-	if (cpts[0] != "beq")
+	if (cpts[0] == "beq")
 		{
 			unsigned i;
 			std::stringstream ss;
@@ -322,6 +326,10 @@ MIPSProcessor::mips_mem ()
 			ss >> i;
 			/// @todo Implement operator+=
 			m_memory[m_register_file.m_registers[REG_PC]] = i + 4;
+		}
+	else
+		{
+			m_register_file.m_registers[REG_PC] = m_register_file.m_registers[REG_PC] + 4;
 		}
 }
 
