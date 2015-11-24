@@ -118,7 +118,7 @@ MIPSProcessor::tick ()
 }
 
 // Functions at the processor's different states.
-#include <iostream>
+
 void
 MIPSProcessor::mips_if ()
 {
