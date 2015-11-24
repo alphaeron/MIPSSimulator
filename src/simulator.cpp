@@ -1,13 +1,9 @@
 #include <os/os.hpp>
-#include <processor/clock.hpp>
 #include <processor/memory.hpp>
 #include <processor/processor.hpp>
 #include <processor/register/register.hpp>
 #include <processor/register/register_file.hpp>
 #include <simulator.hpp>
-
-// Global OS.
-#include <globals.hpp>
 
 OS* os;
 
@@ -30,10 +26,10 @@ Simulator::~Simulator ()
 }
 
 void
-simulate ()
+Simulator::simulate ()
 {
 	// First, build the registers and the register file.
-	RegisterFile register_file;
+	RegisterFile<unsigned> register_file;
 
 	// Construct main memory.
 	Memory memory (m_memory_size);
@@ -41,11 +37,8 @@ simulate ()
 	// Next build the processor.
 	MIPSProcessor processor (memory, register_file);
 
-	// Construct the clock for this system.
-	Clock clock (processor);
-
 	// Construct the last required object, the OS.
-	os = new OS (clock, processor, memory);
+	os = new OS (processor, memory);
 
 	// Finally, execute.
 	os->execute ();

@@ -1,8 +1,8 @@
 #include <os/os.hpp>
 
 inline
-OS::OS (Clock& clock, MIPSProcessor& processor, Memory& memory)
-	: m_clock (clock), m_processor (processor), m_memory (memory)
+OS::OS (MIPSProcessor& processor, Memory& memory)
+	: m_processor (processor), m_memory (memory)
 {
 }
 
@@ -16,7 +16,7 @@ OS::execute ()
 	while (true)
 		{
 			// This handles everything that should occur...
-			clock.tick ();
+			m_processor.tick ();
 		}
 }
 

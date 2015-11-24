@@ -1,6 +1,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <getopt.h>
+#include <iostream>
 #include <string>
 
 #include <simulate.hpp>
@@ -8,7 +9,7 @@
 int
 main (int argc, char* argv[])
 {
-	std::string version = "1.0.0"
+	std::string version = "1.0.0";
 	int verbose_flag = 0;
 	int num_processes = 32;
 	int instruction_time_slice = 50;
@@ -35,7 +36,7 @@ main (int argc, char* argv[])
 					{"page-size",              optional_argument, 0, 'g'},
 					{"memory-size",            optional_argument, 0, 'm'},
 					{"program",                required_argument, 0, 'r'},
-					{"data-dir",               required_argument, 0, 'd'}
+					{"data-dir",               required_argument, 0, 'd'},
           {0, 0, 0, 0}
         };
 
@@ -131,41 +132,41 @@ void
 print_usage ()
 {
 	printf(
-"Usage: simulate [-p NUMPROCESSES] [-t NUMINSTS] [-a ALGORITHM] [-b BITS]\n\
- [-a PAGESIZE] -r PROGRAM -d DATADIR\n\
-MIPS processor simulator that executes MIPS assembly programs.\n\
-\n\
-Mandatory arguments to long options are mandatory for short options to.\n\
-  -h, --help                               Output a brief help message and\n\
-                                           exit.\n\
-  -v, --version                            Output version information and \
-exit.\n\
-  -V, --verbose                            Output information at each stage \
-of\n\
-                                           execution.\n\
-  -p, --num-processes=NUMPROCESSES         Set the number of processes.\n\
-                                           Default is 32 processes.\n\
-  -t, --instruction-time-slice=NUMINSTS    Set the number of instructions in \
-an\n\
-                                           instruction time slice.  Default \
-is\n\
-                                           50 instructions.\n\
-  -a, --vm-algorithm=ALGORITHM             Specify the virtual memory \
-algorithm\n\
-                                           to use when executing this \
-program.\n\
-  -b, --virtual-address-bits=BITS          Secify the number of bits in a\n\
-                                           virtual address.  Default is 24\n\
-                                           bits.\n\
-  -g, --page-size=PAGESIZE                 Specify the size of a page.  \
-Default\n\
-                                           is 4KiB.\n\
-  -m, --memory-size=MEMSIZE                Specify the size of physical \
-memory.  Default is 1GiB.\n\
-  -r, --program=PROGRAM                    Specify the program to execute.  \
-The\n\
-                                           program must be under the data\n\
-                                           directory.\n\
-  -d, --data-dir=DATADIR                   The data directory to store the\n\
-                                           program's assembly files in.\n");
+"Usage: simulate [-p NUMPROCESSES] [-t NUMINSTS] [-a ALGORITHM] [-b BITS]\n"
+" [-a PAGESIZE] -r PROGRAM -d DATADIR\n"
+"MIPS processor simulator that executes MIPS assembly programs.\n"
+"\n"
+"Mandatory arguments to long options are mandatory for short options to.\n"
+"  -h, --help                               Output a brief help message and\n"
+"                                           exit.\n"
+"  -v, --version                            Output version information and "
+"exit.\n"
+"  -V, --verbose                            Output information at each stage "
+"of\n"
+"                                           execution.\n"
+"  -p, --num-processes=NUMPROCESSES         Set the number of processes.\n"
+"                                           Default is 32 processes.\n"
+"  -t, --instruction-time-slice=NUMINSTS    Set the number of instructions in "
+"an\n"
+"                                           instruction time slice.  Default "
+"is\n"
+"                                           50 instructions.\n"
+"  -a, --vm-algorithm=ALGORITHM             Specify the virtual memory "
+"algorithm\n"
+"                                           to use when executing this "
+"program.\n"
+"  -b, --virtual-address-bits=BITS          Secify the number of bits in a\n"
+"                                           virtual address.  Default is 24\n"
+"                                           bits.\n"
+"  -g, --page-size=PAGESIZE                 Specify the size of a page.  "
+"Default\n"
+"                                           is 4KiB.\n"
+"  -m, --memory-size=MEMSIZE                Specify the size of physical "
+"memory.  Default is 1GiB.\n"
+"  -r, --program=PROGRAM                    Specify the program to execute.  "
+"The\n"
+"                                           program must be under the data\n"
+"                                           directory.\n"
+"  -d, --data-dir=DATADIR                   The data directory to store the\n"
+"                                           program's assembly files in.\n");
 }

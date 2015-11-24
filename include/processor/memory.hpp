@@ -1,7 +1,7 @@
 #ifndef __MIPSSIMULATOR_PROCESSOR_MEMORY_HPP_
 #define __MIPSSIMULATOR_PROCESSOR_MEMORY_HPP_
 
-#include <experimental/any>
+#include <boost/any.hpp>
 #include <map>
 
 class Memory
@@ -33,18 +33,7 @@ public:
 	 *
 	 * @return The value of this <code>Memory</code> at <code>address</code>.
 	 */
-	unsigned
-	operator[] (unsigned address) const;
-
-	/**
-	 * @brief Index memory as you normally would.
-	 *
-	 * @param[in] address The "address" to use as an index into this
-	 *            <code>Memory</code>.
-	 *
-	 * @return The value of this <code>Memory</code> at <code>address</code>.
-	 */
-	unsigned&
+	boost::any&
 	operator[] (unsigned address);
 
 private:
@@ -53,7 +42,7 @@ private:
 	/** The size of data. */
 	size_t m_size;
 	/** The data that is stored in this <code>Memory</code>. */
-	std::map<unsigned, std::experimental::any> data;
+	std::map<unsigned, boost::any> data;
 };
 
 #endif // __MIPSSIMULATOR_PROCESSOR_MEMORY_HPP_

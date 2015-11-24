@@ -25,8 +25,8 @@ struct RunStatistics
 	unsigned long n_page_table_misses;
 };
 
-ostream&
-operator<< (ostream& os, const RunStatistics& stats);
+std::ostream&
+operator<< (std::ostream& os, const RunStatistics& stats);
 
 extern RunStatistics statistics;
 

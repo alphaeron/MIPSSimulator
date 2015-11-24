@@ -12,7 +12,7 @@ Makefile.in
 *.so
 *.a
 ar-lib
-libtool.m4
+libtool*
 lt*.m4
 aclocal.m4
 autom4te.cache
@@ -24,6 +24,9 @@ ltmain.sh
 missing
 depcomp
 stamp-h1
+*.stamp
+*.dirstamp
 Makefile
 aclocal.m4
 docs
+*.dSYM

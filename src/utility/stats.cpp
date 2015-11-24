@@ -2,8 +2,8 @@
 
 RunStatistics statistics;
 
-ostream&
-operator<< (ostream& os, const RunStatistics& stats)
+std::ostream&
+operator<< (std::ostream& os, const RunStatistics& stats)
 {
 	os << "Wall Clock Time: " << stats.wall_clock_time << std::endl
 		 << "Number of Cycles: " << stats.n_cycles << std::endl
