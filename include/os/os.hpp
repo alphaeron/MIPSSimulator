@@ -39,6 +39,11 @@ public:
 	void
 	execute ();
 
+	std::string
+	get_memory (unsigned address);
+
+	void
+	set_memory (unsigned address, std::string value);
 	/**
 	 * @brief Exit application (syscall).
 	 */

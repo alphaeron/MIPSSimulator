@@ -60,6 +60,18 @@ OS::execute ()
 		}
 }
 
+std::string
+OS::get_memory (unsigned address)
+{
+	return m_memory[address];
+}
+
+void
+OS::set_memory (unsigned address, std::string value)
+{
+	m_memory[address] = value;
+}
+
 void
 OS::exit_application ()
 {

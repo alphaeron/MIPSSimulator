@@ -124,7 +124,7 @@ MIPSProcessor::mips_if ()
 {
 	// Get the instruction to execute (at $pc).
 	// $pc will be "mux"ed at the end of the ex stage.
-	ifid_reg = m_memory[m_register_file.m_registers[REG_PC]];
+	ifid_reg = os->get_memory(m_register_file.m_registers[REG_PC]);
 	if (ifid_reg == "")
 		{
 			exit (0);
@@ -321,11 +321,11 @@ MIPSProcessor::mips_mem ()
 		{
 			unsigned i;
 			std::stringstream ss;
-			std::string line = m_memory[m_register_file.m_registers[REG_PC]];
+			std::string line = os->get_memory(m_register_file.m_registers[REG_PC]);
 			ss << std::hex << line.substr (2, line.length () - 2);
 			ss >> i;
-			/// @todo Implement operator+=
-			m_memory[m_register_file.m_registers[REG_PC]] = i + 4;
+			i = i + 4;
+			m_register_file.m_registers[REG_PC] = i;
 		}
 	else
 		{
@@ -408,7 +408,7 @@ MIPSProcessor::mips_lw (Register<unsigned>& rt, Register<unsigned>& rs, int offs
 {
 	unsigned i;
 	std::stringstream ss;
-	std::string line = m_memory[rs + offset];
+	std::string line = os->get_memory(rs + offset);
 	ss << std::hex << line.substr (2, line.length () - 2);
 	ss >> i;
 	rt = i;
@@ -476,7 +476,7 @@ MIPSProcessor::mips_sw (Register<unsigned>& rt, Register<unsigned>& rs, int offs
 	std::stringstream ss;
 	ss << std::hex << rt;
 	std::string hex_string ("0x" + ss.str ());
-	m_memory[rs + offset] = hex_string;
+	os->set_memory(rs + offset, hex_string);
 }
 
 void
