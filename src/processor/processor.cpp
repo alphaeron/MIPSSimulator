@@ -124,7 +124,7 @@ MIPSProcessor::mips_if ()
 {
 	// Get the instruction to execute (at $pc).
 	// $pc will be "mux"ed at the end of the ex stage.
-	ifid_reg = m_memory[m_register_file.m_registers[REG_PC]];
+	ifid_reg = boost::any_cast<std::string>(m_memory[m_register_file.m_registers[REG_PC]]);
 }
 
 void
@@ -375,7 +375,7 @@ MIPSProcessor::mips_lui (Register<unsigned>& rt, Register<unsigned>& rs, unsigne
 void
 MIPSProcessor::mips_lw (Register<unsigned>& rt, Register<unsigned>& rs, int offset)
 {
-	rt = m_memory[rs + offset];
+	rt = boost::any_cast<unsigned>(m_memory[boost::any_cast<unsigned>(rs) + offset]);
 }
 
 void

@@ -51,15 +51,15 @@ public:
 	DataT
 	operator= (DataT data);
 
-	/**
-	 * @brief Assign a register to this register.
-	 *
-	 * @param[in] data The data to copy assign the value of to this register.
-	 *
-	 * @return *this.
-	 */
-	DataT
-	operator= (boost::any data);
+	// /**
+	//  * @brief Assign a register to this register.
+	//  *
+	//  * @param[in] data The data to copy assign the value of to this register.
+	//  *
+	//  * @return *this.
+	//  */
+	// DataT
+	// operator= (boost::any data);
 
 	/**
 	 * @brief Test for equality.

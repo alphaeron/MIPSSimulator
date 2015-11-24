@@ -1,6 +1,6 @@
 AUTOMAKE_OPTIONS = subdir-objects
 
-AM_CXXFLAGS = -I. -I.. -I../include
+AM_CXXFLAGS = -I. -I.. -I../include -g
 
 noinst_PROGRAMS = simulate
 

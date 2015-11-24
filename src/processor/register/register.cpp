@@ -42,13 +42,13 @@ Register<DataT>::operator= (DataT data)
 	return m_data;
 }
 
-template <typename DataT>
-DataT
-Register<DataT>::operator= (boost::any data)
-{
-	m_data = boost::any_cast<DataT>(data);
-	return *this;
-}
+// template <typename DataT>
+// DataT
+// Register<DataT>::operator= (boost::any data)
+// {
+// 	m_data = boost::any_cast<DataT>(data);
+// 	return m_data;
+// }
 
 template <typename DataT>
 bool
