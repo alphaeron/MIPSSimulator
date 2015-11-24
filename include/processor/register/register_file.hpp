@@ -1,8 +1,6 @@
 #ifndef __MIPSSIMULATOR_PROCESSOR_REGISTERFILE_HPP_
 #define __MIPSSIMULATOR_PROCESSOR_REGISTERFILE_HPP_
 
-#include <boost/any.hpp>
-
 #include <processor/register/register.hpp>
 
 // Defines for special registers.
@@ -16,7 +14,7 @@
 
 #define N_REGISTERS (REG_PC)
 
-template <typename DataT = boost::any>
+template <typename DataT>
 class RegisterFile
 {
 public:
@@ -40,13 +38,13 @@ public:
 	 * @brief
 	 */
 	Register<DataT>&
-	operator[] (boost::any reg) const;
+	operator[] (unsigned reg) const;
 
 	/**
 	 * @brief
 	 */
 	Register<DataT>&
-	operator[] (boost::any reg);
+	operator[] (unsigned reg);
 
 // private:
 	// VARIABLES

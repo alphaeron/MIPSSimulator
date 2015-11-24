@@ -118,13 +118,13 @@ MIPSProcessor::tick ()
 }
 
 // Functions at the processor's different states.
-
+#include <iostream>
 void
 MIPSProcessor::mips_if ()
 {
 	// Get the instruction to execute (at $pc).
 	// $pc will be "mux"ed at the end of the ex stage.
-	ifid_reg = boost::any_cast<std::string>(m_memory[m_register_file.m_registers[REG_PC]]);
+	ifid_reg = m_memory[m_register_file.m_registers[REG_PC]];
 }
 
 void
@@ -190,25 +190,43 @@ MIPSProcessor::mips_ex ()
 			// If we have a lw or sw.
 			if (cpts[0] == "lui")
 				{
-					/// @todo split to get these parts.
 					unsigned offset;
-					Register<unsigned> rt;
+					unsigned reg_number;
+					int offset_end_index = cpts[2].find ("(");
+					int end_index = cpts[2].find (")");
+					offset = std::stoi (cpts[2].substr (0, offset_end_index));
+					reg_number = std::stoi (cpts[2].substr (offset_end_index + 2, end_index - offset_end_index + 1));
+					int first = std::stoi (cpts[1].substr(1, cpts[1].length () - 1));
+					mips_lui(m_register_file[first],
+									 m_register_file[reg_number], offset);
 					// m_operations[cpts[0]](m_register_file[std::stoi (cpts[1])],
 					// 											rt, offset);
 				}
 			if (cpts[0] == "lw")
 				{
-					/// @todo split to get these parts.
 					unsigned offset;
-					Register<unsigned> rt;
+					unsigned reg_number;
+					int offset_end_index = cpts[2].find ("(");
+					int end_index = cpts[2].find (")");
+					offset = std::stoi (cpts[2].substr (0, offset_end_index));
+					reg_number = std::stoi (cpts[2].substr (offset_end_index + 2, end_index - offset_end_index + 1));
+					int first = std::stoi (cpts[1].substr(1, cpts[1].length () - 1));
+					mips_lw(m_register_file[first],
+									m_register_file[reg_number], offset);
 					// m_operations[cpts[0]](m_register_file[std::stoi (cpts[1])],
 					// 											rt, offset);
 				}
 			else if (cpts[0] == "sw")
 				{
-					/// @todo split to get these parts.
 					unsigned offset;
-					Register<unsigned> rt;
+					unsigned reg_number;
+					int offset_end_index = cpts[2].find ("(");
+					int end_index = cpts[2].find (")");
+					offset = std::stoi (cpts[2].substr (0, offset_end_index));
+					reg_number = std::stoi (cpts[2].substr (offset_end_index + 2, end_index - offset_end_index + 1));
+					int first = std::stoi (cpts[1].substr(1, cpts[1].length () - 1));
+					mips_sw(m_register_file[first],
+									m_register_file[reg_number], offset);
 					// m_operations[cpts[0]](m_register_file[std::stoi (cpts[1])],
 					// 											rt, offset);
 				}
@@ -297,10 +315,15 @@ MIPSProcessor::mips_mem ()
 	// Only update program counter if we didn't branch.
 	if (cpts[0] != "beq")
 		{
+			unsigned i;
+			std::stringstream ss;
+			std::string line = m_memory[m_register_file.m_registers[REG_PC]];
+			ss << std::hex << line.substr (2, line.length () - 2);
+			ss >> i;
 			/// @todo Implement operator+=
-			m_memory[m_register_file.m_registers[REG_PC]] =
-				boost::any_cast<unsigned>(m_memory[m_register_file.m_registers[REG_PC]]) + 4;
-		}}
+			m_memory[m_register_file.m_registers[REG_PC]] = i + 4;
+		}
+}
 
 void
 MIPSProcessor::mips_wb ()
@@ -375,7 +398,13 @@ MIPSProcessor::mips_lui (Register<unsigned>& rt, Register<unsigned>& rs, unsigne
 void
 MIPSProcessor::mips_lw (Register<unsigned>& rt, Register<unsigned>& rs, int offset)
 {
-	rt = boost::any_cast<unsigned>(m_memory[boost::any_cast<unsigned>(rs) + offset]);
+	unsigned i;
+	std::stringstream ss;
+	std::string line = m_memory[rs + offset];
+	ss << std::hex << line.substr (2, line.length () - 2);
+	ss >> i;
+	rt = i;
+	//rt = boost::any_cast<unsigned>(m_memory[boost::any_cast<unsigned>(rs) + offset]);
 }
 
 void
@@ -436,7 +465,10 @@ MIPSProcessor::mips_subu (Register<unsigned>& rd, Register<unsigned>& rs, Regist
 void
 MIPSProcessor::mips_sw (Register<unsigned>& rt, Register<unsigned>& rs, int offset)
 {
-	m_memory[rs + offset] = rt;
+	std::stringstream ss;
+	ss << std::hex << rt;
+	std::string hex_string ("0x" + ss.str ());
+	m_memory[rs + offset] = hex_string;
 }
 
 void

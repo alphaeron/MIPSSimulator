@@ -1,7 +1,6 @@
 #ifndef __MIPSSIMULATOR_PROCESSOR_MEMORY_HPP_
 #define __MIPSSIMULATOR_PROCESSOR_MEMORY_HPP_
 
-#include <boost/any.hpp>
 #include <map>
 
 class Memory
@@ -33,7 +32,7 @@ public:
 	 *
 	 * @return The value of this <code>Memory</code> at <code>address</code>.
 	 */
-	boost::any&
+	std::string&
 	operator[] (unsigned address);
 
 private:
@@ -42,7 +41,7 @@ private:
 	/** The size of data. */
 	size_t m_size;
 	/** The data that is stored in this <code>Memory</code>. */
-	std::map<unsigned, boost::any> data;
+	std::map<unsigned, std::string> data;
 };
 
 #endif // __MIPSSIMULATOR_PROCESSOR_MEMORY_HPP_

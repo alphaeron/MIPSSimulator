@@ -1,9 +1,49 @@
+#include <fstream>
+#include <sstream>
+#include <iostream>
 #include <os/os.hpp>
 
 inline
-OS::OS (MIPSProcessor& processor, Memory& memory)
+OS::OS (MIPSProcessor& processor, Memory& memory, std::string program,
+				std::string data_dir)
 	: m_processor (processor), m_memory (memory)
 {
+	// Read in the program's asm and addr files, and put them in memory.
+	std::ifstream asm_file (data_dir + "/" + program + ".asm");
+	std::ifstream addrs_file (data_dir + "/" + program + ".addrs");
+	std::string asm_line;
+	std::string addrs_line;
+
+	// Need first pc...
+	int cnt = 0;
+	unsigned first_pc = -1;
+	while (std::getline (asm_file, asm_line) && std::getline (addrs_file, addrs_line))
+		{
+			unsigned i;
+			std::stringstream ss;
+			ss << std::hex << addrs_line.substr (2, addrs_line.length () - 2);
+			ss >> i;
+			if (cnt == 0)
+				{
+					first_pc = i;
+				}
+			cnt++;
+			// if (i < first_pc || first_pc < 0)
+			// 	{
+			// 		first_pc = i;
+			// 	}
+			m_memory[i] = asm_line;
+			// try
+			// 	{
+			// 		boost::any_cast<std::string>(&m_memory[i]);
+			// 		std::cout << *boost::any_cast<std::string>(&m_memory[i]) << std::endl;
+			// 	}
+			// catch (const boost::bad_any_cast &)
+			// 	{
+			// 		std::cout << "NO!!!!!" << std::endl;
+			// 	}
+		}
+	m_processor.m_register_file.m_registers[REG_PC] = first_pc;
 }
 
 inline

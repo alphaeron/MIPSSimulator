@@ -31,3 +31,5 @@ aclocal.m4
 docs
 *.dSYM
 simulate
+*.asm
+*.addrs

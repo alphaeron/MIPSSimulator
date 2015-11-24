@@ -38,7 +38,7 @@ Simulator::simulate ()
 	MIPSProcessor processor (memory, register_file);
 
 	// Construct the last required object, the OS.
-	os = new OS (processor, memory);
+	os = new OS (processor, memory, m_program, m_data_dir);
 
 	// Finally, execute.
 	os->execute ();

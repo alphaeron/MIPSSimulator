@@ -1,6 +1,8 @@
 #ifndef __MIPSSIMULATOR_OS_OS_HPP_
 #define  __MIPSSIMULATOR_OS_OS_HPP_
 
+#include <string>
+
 #include <processor/memory.hpp>
 #include <processor/processor.hpp>
 
@@ -15,8 +17,12 @@ public:
 	 * @param[in] processor The processor this <code>OS</code> is
 	 *                                   running on.
 	 * @param[in] memory    The memory assosiated with this system.
+	 * @param[in] program   The name of the program.
+	 * @param[in] data_dir  The directory <code>program</code>'s data files are
+	 *                      in.
 	 */
-	OS (MIPSProcessor& processor, Memory& memory);
+	OS (MIPSProcessor& processor, Memory& memory, std::string program,
+			std::string data_dir);
 
 	// DESTRUCTORS
 

@@ -9,7 +9,7 @@ inline
 Memory::~Memory ()
 { }
 
-boost::any&
+std::string&
 Memory::operator[] (unsigned address)
 {
 	/// @todo Bounds checking and raise exception if outsize bounds.

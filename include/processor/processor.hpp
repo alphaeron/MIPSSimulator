@@ -503,8 +503,12 @@ private:
 	int m_processor_state;
 	/** The memory for this <code>MIPSProcessor</code>. */
 	Memory& m_memory;
+
+	/// @todo This _should_ be private...
+public:
 	/** The register file for this <code>MIPSProcessor</code>. */
 	RegisterFile<unsigned>& m_register_file;
+private:
 	/** The functions at each state in this <code>MIPSProcessor</code>. */
 	std::map<std::string, std::function <void()> > m_state_functions;
 	// /** The operations that this <code>MIPSProcessor</code> supports. */
@@ -512,7 +516,7 @@ private:
 	/** The syscalls that this <code>MIPSProcessor</code> supports. */
 	std::map<int, std::function<void()> > m_syscalls;
 
-	Register<std::string> ifid_reg;
+	std::string ifid_reg;
 	std::vector <std::string> cpts;
 
 	// Temporary registers.
